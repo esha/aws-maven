@@ -23,7 +23,6 @@ import org.apache.maven.wagon.proxy.ProxyInfoProvider;
 import org.apache.maven.wagon.repository.Repository;
 import org.jets3t.service.S3Service;
 import org.jets3t.service.S3ServiceException;
-import org.jets3t.service.acl.AccessControlList;
 import org.jets3t.service.impl.rest.httpclient.RestS3Service;
 import org.jets3t.service.model.S3Bucket;
 import org.jets3t.service.model.S3Object;
@@ -150,7 +149,6 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
 			IOException {
 		buildDestinationPath(getDestinationPath(destination));
 		S3Object object = new S3Object(basedir + destination);
-		object.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ);
 		object.setDataInputFile(source);
 		object.setContentLength(source.length());
 
@@ -179,7 +177,6 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
 
 	private void buildDestinationPath(String destination) throws S3ServiceException {
 		S3Object object = new S3Object(basedir + destination + "/");
-		object.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ);
 		object.setContentLength(0);
 		service.putObject(bucket, object);
 		int index = destination.lastIndexOf('/');
