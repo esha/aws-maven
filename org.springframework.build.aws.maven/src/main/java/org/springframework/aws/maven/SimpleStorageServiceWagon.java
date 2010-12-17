@@ -43,7 +43,7 @@ import java.util.List;
  * of <code>s3://bucket.name</code>. As an example
  * <code>s3://static.springframework.org</code> would put files into the
  * <code>static.springframework.org</code> bucket on the S3 service. <p/> This
- * implementation uses the <code>username</code> and <code>passphrase</code>
+ * implementation uses the <code>username</code> and <code>password</code>
  * portions of the server authentication metadata for credentials.
  * 
  * @author Ben Hale
@@ -203,9 +203,9 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
 			return null;
 		}
 		String accessKey = authenticationInfo.getUserName();
-		String secretKey = authenticationInfo.getPassphrase();
+		String secretKey = authenticationInfo.getPassword();
 		if (accessKey == null || secretKey == null) {
-			throw new AuthenticationException("S3 requires a username and passphrase to be set");
+			throw new AuthenticationException("S3 requires a username and password to be set");
 		}
 		return new AWSCredentials(accessKey, secretKey);
 	}
