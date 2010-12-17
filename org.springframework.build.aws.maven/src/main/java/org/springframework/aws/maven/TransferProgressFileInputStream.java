@@ -45,7 +45,7 @@ public class TransferProgressFileInputStream extends FileInputStream {
 
 	public int read(byte b[]) throws IOException {
 		int count = super.read(b);
-		progress.notify(b, b.length);
+		progress.notify(b, count);
 		return count;
 	}
 
