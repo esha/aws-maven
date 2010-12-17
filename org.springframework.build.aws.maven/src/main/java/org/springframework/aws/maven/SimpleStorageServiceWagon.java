@@ -27,6 +27,7 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service;
 import org.jets3t.service.model.S3Bucket;
 import org.jets3t.service.model.S3Object;
 import org.jets3t.service.security.AWSCredentials;
+import org.jets3t.service.utils.Mimetypes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,6 +56,8 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
 	private S3Bucket bucket;
 
 	private String basedir;
+
+	private Mimetypes mimeTypes = Mimetypes.getInstance();
 
 	public SimpleStorageServiceWagon() {
 		super(false);
@@ -151,6 +154,8 @@ public class SimpleStorageServiceWagon extends AbstractWagon {
 		S3Object object = new S3Object(basedir + destination);
 		object.setDataInputFile(source);
 		object.setContentLength(source.length());
+		String mimeType = mimeTypes.getMimetype(destination);
+		object.setContentType(mimeType);
 
 		InputStream in = null;
 		try {
